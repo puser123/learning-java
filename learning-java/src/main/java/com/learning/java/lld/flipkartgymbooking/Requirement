@@ -1,0 +1,75 @@
+
+
+N center
+6 slots per centet
+M variations of activity per slot.
+K seat in each slots.
+
+Functionality
+- User can register
+- View workout  availability at a particular day at a center.
+- Book a workout for users , A user can book maximum of 3 slots per day for any center.
+- Have a waitlist queue for a slot.
+- View his plans for specific day.
+- Cancel his/her workout
+
+- Addition of center
+- Addition of workType at particular center.
+- Add/Delete of a slot given a center, workout Type, startTime, number of seats, & waiting list queue size.
+- Details of workout available at center.
+- Book a slot for a user given slot , workout type and day.
+- view UserBooking (userId, date)
+- Cancel Slot for a user given a slot and center, notify appropraite users ( one who is cancelling,
+, one who is present waiting list movement)
+recommendSlot(centerName, slotTime, workoutType, user, rankingType)
+rankingType - Time/Distance
+workoutType
+- SWIMMING
+- CARDIO
+- YOGA
+- ZUMBA
+
+Assumption : Each slot would have only one workoutType.
+
+
+
+Non functional requirement
+Handle concurrency
+
+
+Classes and Models
+
+Models
+
+Center
+- centerId
+- center name
+- private String addressLine
+- private String pinCode;
+- city
+- state
+- private double lat, long
+- private static int maxSlots;
+- Map<SlotType, Slot> slots
+
+
+Slot
+- slotId
+- slotType
+- int seatCount // for now we will use simple count.
+- private LocalDate startTime
+- private int Duration
+- private DurationUnit unit;
+- private int waitingQueueSize;
+- private Queue<string> waitingQueue;
+
+User
+- userId
+- name
+- private Address address
+- List of booked slots by Date.
+- List of waiting slots.
+
+
+
+Address

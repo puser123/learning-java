@@ -8,8 +8,7 @@ import com.learning.java.lld.parkinglot.strategy.NaturalNumberOrderingParkingSlo
 import com.learning.java.lld.parkinglot.strategy.ParkingStrategy;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -32,12 +31,15 @@ public class ParkingServiceImpl implements ParkingService{
                     .keySet().stream().collect(Collectors.toList());
             this.parkingStrategy.addSlot(availableSlot);
         }
-
-
     }
 
     @Override
     public Map<Integer, Slot> getOccupiedSlots() {
+        Deque<String> list = new LinkedList<>();
+        String s = "hello";
+        String result = "";
+        result += s.charAt(0);
+
         return this.parkingLot.getSlotMap()
                 .entrySet()
                 .stream().filter(integerSlotEntry -> integerSlotEntry.getValue().isAvailable())

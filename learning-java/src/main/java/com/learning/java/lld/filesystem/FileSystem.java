@@ -1,8 +1,7 @@
-package com.learning.java.lld;
+package com.learning.java.lld.filesystem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Problem statement - Design an in memory file system , where you
@@ -27,6 +26,12 @@ abstract class Block {
         this.name = name;
         this.parent = parentDirectory;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public abstract void ls();
 }
 
 class File extends Block{
@@ -45,22 +50,36 @@ class File extends Block{
         this.content  =content;
     }
 
-};
-class Directory extends Block{
-    List<Block> blocks;
+    @Override
+    public void ls() {
+        System.out.println(this.getName());
+    }
 
+};
+class Directory extends Block {
+    List<Block> blocks;
 
     public Directory(String rootDirectoryName) {
         super(rootDirectoryName);
+        blocks = new ArrayList<>();
     }
     public Directory(String name, Directory p) {
         super(name, p);
         this.blocks = new ArrayList<>();
     }
+
+    @Override
+    public void ls() {
+        for(Block b: blocks) {
+            System.out.println(b.getName());
+        }
+    }
+
     public void addBlock(Block b) {
         // We need to validate if b
         blocks.add(b);
     }
+
     public void deleteBlock(Block b) {
         blocks.remove(b);
     }
@@ -82,7 +101,22 @@ class Directory extends Block{
     }
 };
 
+// Implement CD, LS, Touch
+// with fulll path name and relative paths starting with ~./
+// search based on a string pattern
+//result of pattern matching against all file. Folder names and file contents(if they are text based)
+//Ordering should be based on any heuritstic logic.
+
 public class FileSystem {
 
-    Directory p = new Directory("/");
+    public static void main(String[] args) {
+        Directory directory = new Directory("/");
+        directory.addBlock(new File("first.txt", "helllo", directory));
+
+        directory.addBlock(new Directory("/second", directory));
+        int fileCount  = directory.numberOfFiles();
+        directory.ls();
+
+    }
+
 }
